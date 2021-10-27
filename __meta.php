@@ -11,5 +11,5 @@
  */
 function meta($url, $sec=30)
 {
-    echo '<meta http-equiv="refresh" content="'.$sec.'; url='.$url.'; ">';
+    echo '<meta http-equiv="refresh" content="'.$sec.'; url='.$url.'">';
 }

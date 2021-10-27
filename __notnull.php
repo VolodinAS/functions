@@ -2,7 +2,7 @@
 
 /**
  * Провека объекта на NULL
- * @param void $var
+ * @param $var
  * @return bool
  */
 function notnull($var)

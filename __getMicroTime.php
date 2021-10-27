@@ -16,6 +16,6 @@ function getMicroTime($tp=0)
 	else
 	{
 		$usec_data = explode("." , $usec);
-		return date( "d.m.Y H:i:s", $sec ) . ':' . $usec[1];
+		return date( "d.m.Y H:i:s", $sec ) . ':' . $usec_data[1];
 	}
 }

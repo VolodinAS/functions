@@ -6,15 +6,20 @@
 
 /**
  * Фреймфункция CURL-запроса 2.0
- * @param string $url
- * @param array $options
+ * @param string $url URL-строка
+ * @param array $options Настройки запроса
+ * @param string $var_request_counter Подсчитать количество запросов
  * @return array
  */
-function lineCURL($url, $options = [])
+function lineCURL($url, $options = [], $var_request_counter='TOTAL_REQUESTS_AMOUNT')
 {
+	global $$var_request_counter;
+	
 	$response = [];
 	$response['data'] = [];
 	$response['url'] = $url;
+	
+	
 	
 	if (strlen($url) > 0)
 	{
@@ -77,6 +82,11 @@ function lineCURL($url, $options = [])
 			}
 			
 			$result = curl_exec($curl);
+			
+			if ( notnull($TOTAL_REQUESTS_AMOUNT) )
+			{
+				$TOTAL_REQUESTS_AMOUNT++;
+			}
 			
 			$http_status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 			$curl_errno = curl_errno($curl);

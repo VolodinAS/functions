@@ -51,3 +51,6 @@ require_once "__lineCURL.php";
 require_once "__pretty_print.php";
 require_once "__t2s.php";
 require_once "__getMicroTime.php";
+require_once "__table_param.php";
+require_once "__NormalizeNumber.php";
+require_once "__meta.php";

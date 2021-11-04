@@ -13,13 +13,12 @@
  */
 function lineCURL($url, $options = [], $var_request_counter='TOTAL_REQUESTS_AMOUNT')
 {
+//	print_r('BRATAN-IM-HERE');
 	global $$var_request_counter;
 	
 	$response = [];
 	$response['data'] = [];
 	$response['url'] = $url;
-	
-	
 	
 	if (strlen($url) > 0)
 	{
@@ -27,6 +26,8 @@ function lineCURL($url, $options = [], $var_request_counter='TOTAL_REQUESTS_AMOU
 		if ($curl)
 		{
 			curl_setopt($curl, CURLOPT_URL, $url);
+			
+			curl_setopt($curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
 			
 			if (is_null($options['timeout']))
 				$options['timeout'] = 10;
@@ -68,6 +69,11 @@ function lineCURL($url, $options = [], $var_request_counter='TOTAL_REQUESTS_AMOU
 				curl_setopt($curl, CURLOPT_COOKIEFILE, $options['cookie']);
 			}
 			
+			if ( $options['nobody'] === true )
+			{
+				curl_setopt($curl, CURLOPT_NOBODY, true);
+			}
+			
 			
 			if (count($options['sleep']) > 0)
 			{
@@ -98,6 +104,8 @@ function lineCURL($url, $options = [], $var_request_counter='TOTAL_REQUESTS_AMOU
 				$body = substr($result, $header_size);
 				$response['data']['header'] = $header;
 				$response['data']['body'] = $body;
+				
+//				$response['data']['header_size'] = $header_size;
 			} else
 			{
 				$body = $result;

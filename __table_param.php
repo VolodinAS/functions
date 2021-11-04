@@ -4,10 +4,37 @@
  */
 
 /**
+ * Возвращает массив параметров из параметров arr, внутри которых есть параметры с подстрокой $param_substr
+ * @param array $arr массив с параметрами
+ * @param string $param_substr подстрока поиска параметра
+ * @return array|bool false при 0вом массиве, array - если что-то нашлось
+ */
+function table_param_inner($arr, $param_substr)
+{
+	if ( count($arr) > 0 )
+	{
+		$new_arr = [];
+		foreach ($arr as $param=>$value)
+		{
+			if ( ifound($param, $param_substr) )
+			{
+				$new_arr[$param] = $value;
+			}
+		}
+		if ( count($new_arr) > 0 )
+		{
+			return $new_arr;
+		} else return false;
+		
+		
+	} else return false;
+}
+
+/**
  * Возвращает переменные с одинаковым подстрочным именем
  * @param string $table Название таблицы
  * @param string $param_substr Содержимое параметра
- * @return array
+ * @return array доступ - arr['data']
  */
 function table_get_collection($table, $param_substr)
 {
@@ -68,7 +95,7 @@ function table_get_collection($table, $param_substr)
  * Множественное обновление переменных, указанных в param_array для таблицы table
  * @param string $table Название таблицы
  * @param array $param_array Список параметров с ключами и значениями
- * @return bool
+ * @return bool Статус через true|false
  */
 function table_param_array($table, $param_array)
 {
@@ -87,7 +114,7 @@ function table_param_array($table, $param_array)
  * @param string $table Название таблицы
  * @param string $param_name Название параметра
  * @param string $param_value Значение параметра
- * @return array
+ * @return array доступ - arr['value']
  */
 function table_param($table, $param_name, $param_value=null)
 {

@@ -7,13 +7,20 @@
 /**
  * Выводит массив в виде дерева
  *
- * @param mixed - Массив или объект, который надо обойти
- * @param boolean - Раскрыть дерево элементов по-умолчанию или нет?
- *
+ * @param mixed $in входные данные
+ * @param string $narr название массива
+ * @param bool $timestamp выводить время?
+ * @param bool $opened открыть детали?
  * @return void
  */
-function pretty_print($in, $opened = true)
+function pretty_print($in, $narr=null, $timestamp=true, $opened = true)
 {
+	$arr_name = ( notnull($narr) ) ? '['.$narr.'] ' : '';
+	$arr_time = ( $timestamp ) ? '['.getMicroTime(1).'] ' : '';
+	
+//	logstr($arr_name, '$arr_name');
+//	logstr($arr_time, '$arr_time');
+	
 	if ($opened)
 		$opened = ' open';
 	if (is_object($in) or is_array($in))
@@ -21,6 +28,7 @@ function pretty_print($in, $opened = true)
 		echo '<div>';
 		echo '<details' . $opened . '>';
 		echo '<summary>';
+		echo $arr_time . $arr_name;
 		echo (is_object($in)) ? 'Object {' . count((array)$in) . '}' : 'Array [' . count($in) . ']';
 		echo '</summary>';
 		pretty_print_rec($in, $opened);
